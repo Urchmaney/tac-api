@@ -5,7 +5,7 @@ class GamesController < ApplicationController
     @game.second_player = game_params[:second_player]
     @game.second_player_letter = @game.first_player_letter == 'O' ? 'X' : 'O'
     @game.save
-    GameChannel.broadcast_to(@game, { domain: 'join', data: { second_player: game_params[:second_player] } })
+    GameChannel.broadcast_to(@game, { domain: 'join', data: { second_player: game_params[:second_player], letter: @game.second_player_letter } })
     render json: @game
   end
 
